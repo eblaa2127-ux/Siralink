@@ -3,85 +3,559 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SiraLink TMA - Professional Edition</title>
+    <title>SiraLink TMA - Dark Premium Edition</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
-            --primary: #1e3a8a;
-            --primary-light: #3b82f6;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --dark: #0f172a;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
+            --bg-color: #0b0f14;
+            --card-color: #121820;
+            --input-color: #1a222d;
+            --primary-color: #00b074;
+            --secondary-color: #2563eb;
+            --text-main: #ffffff;
+            --text-muted: #8a99ad;
+            --border-color: #1e293b;
         }
-        body { font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 0; background-color: var(--bg); color: var(--dark); -webkit-user-select: none; user-select: none; }
-        .page { display: none; padding: 16px; max-width: 480px; margin: auto; box-sizing: border-box; animation: fadeIn 0.3s ease-in-out; }
-        .active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* Typography & Components */
-        h2, h3, h4 { margin-top: 0; font-weight: 700; color: var(--dark); }
-        .card { background: var(--card-bg); padding: 18px; border-radius: 20px; margin-bottom: 16px; box-shadow: 0 4px 20px rgba(15,23,42,0.04); border: 1px solid #f1f5f9; }
-        .btn { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white; border: none; padding: 14px; width: 100%; border-radius: 14px; font-weight: bold; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; box-shadow: 0 4px 12px rgba(37,99,235,0.15); }
-        .btn-green { background: linear-gradient(135deg, #059669, var(--success)); box-shadow: 0 4px 12px rgba(16,185,129,0.15); }
-        .btn-outline { background: none; color: var(--primary); border: 2px solid var(--primary); box-shadow: none; }
-        .btn-back { background: none; color: var(--primary-light); border: none; width: auto; padding: 0; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; margin-bottom: 15px; box-shadow: none; }
-        
-        /* Inputs & Selects */
-        label { font-size: 13px; font-weight: 600; color: #64748b; display: block; margin-top: 10px; }
-        input, textarea, select { width: 100%; padding: 12px 14px; margin: 6px 0 12px 0; box-sizing: border-box; border: 1px solid #cbd5e1; border-radius: 12px; font-size: 15px; transition: border 0.2s; background: #f8fafc; }
-        input:focus, textarea:focus, select:focus { border-color: var(--primary-light); outline: none; background: #fff; }
-        .error-msg { color: var(--danger); font-size: 12px; margin-top: -10px; margin-bottom: 10px; display: none; font-weight: 500; }
-        
-        /* Role Selection Cards */
-        .role-card { border: 2px solid #e2e8f0; border-radius: 20px; padding: 20px; text-align: left; cursor: pointer; margin-bottom: 15px; transition: all 0.2s; display: flex; align-items: center; gap: 15px; }
-        .role-card:hover { border-color: var(--primary-light); background: #f0f7ff; }
-        .role-icon { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
-        
-        /* Stats Grid */
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
-        .stat-box { background: var(--card-bg); padding: 12px; border-radius: 16px; text-align: center; border: 1px solid #f1f5f9; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
-        .stat-num { font-size: 18px; font-weight: bold; color: var(--primary); }
-        .stat-label { font-size: 11px; color: #64748b; margin-top: 2px; }
-        
-        /* Badges */
-        .badge { display: inline-block; padding: 4px 8px; border-radius: 20px; font-size: 11px; font-weight: bold; }
-        .badge-info { background: #e0f2fe; color: #0369a1; }
-        .badge-success { background: #dcfce7; color: #15803d; }
-        .badge-warning { background: #fef3c7; color: #b45309; }
 
-        /* Interview Grid & UI */
-        .interview-container { background: linear-gradient(180deg, #f0f7ff 0%, #ffffff 100%); border-radius: 24px; padding: 20px; text-align: center; border: 1px solid #e2e8f0; }
-        .avatar-img { width: 120px; height: 120px; border-radius: 50%; border: 4px solid white; box-shadow: 0 8px 20px rgba(0,0,0,0.08); object-fit: cover; }
-        .controls { display: flex; justify-content: center; gap: 12px; margin: 15px 0; }
-        .icon-btn { width: 45px; height: 45px; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .bubble { background: var(--primary); color: white; padding: 12px 16px; border-radius: 16px 16px 16px 4px; text-align: left; margin: 15px 0; font-size: 14px; max-width: 85%; display: inline-block; }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .page {
+            display: none;
+            padding: 20px 16px 85px 16px; /* Space for bottom nav */
+            max-width: 480px;
+            margin: auto;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .active {
+            display: block;
+            animation: fadeIn 0.25s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* App Cards */
+        .card {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        /* Custom Inputs */
+        label {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 12px;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            background-color: var(--input-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 12px;
+            color: var(--text-main);
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        /* Buttons */
+        .btn {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: opacity 0.2s;
+        }
+
+        .btn:active {
+            opacity: 0.8;
+        }
+
+        .btn-blue {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-back {
+            background: none;
+            color: var(--primary-color);
+            border: none;
+            width: auto;
+            padding: 0;
+            font-size: 14px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        /* Bottom Nav Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--card-color);
+            border-top: 1px solid var(--border-color);
+            display: none;
+            grid-template-columns: repeat(4, 1fr);
+            padding: 8px 0;
+            max-width: 480px;
+            margin: auto;
+            z-index: 100;
+        }
+
+        .nav-item {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 11px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-item.active-nav {
+            color: var(--primary-color);
+        }
+
+        .nav-icon {
+            font-size: 20px;
+        }
+
+        /* Badges & Progress */
+        .badge {
+            background-color: rgba(0, 176, 116, 0.15);
+            color: var(--primary-color);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .skill-box {
+            background-color: var(--input-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .skill-icon { font-size: 24px; margin-bottom: 5px; }
+
+        .progress-bar {
+            background-color: var(--border-color);
+            border-radius: 4px;
+            height: 6px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background-color: var(--primary-color);
+            height: 100%;
+            width: 50%;
+        }
+
+        /* Avatar items */
+        .talent-list {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+        .talent-card {
+            background-color: var(--input-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+            min-width: 90px;
+        }
+        .talent-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #2a3544;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
-    <div id="WelcomePage" class="page active" style="padding-top: 40px; text-align: center;">
-        <div style="background: linear-gradient(135deg, var(--primary), var(--primary-light)); width: 90px; height: 90px; margin: auto; border-radius: 26px; display: flex; align-items: center; justify-content: center; color: white; font-size: 42px; font-weight: 800; box-shadow: 0 10px 25px rgba(37,99,235,0.25);">S</div>
-        <h2 style="margin-top: 24px; font-size: 26px; color: var(--primary); letter-spacing: -0.5px;">SiraLink AI</h2>
-        <p style="color: #64748b; font-size: 15px; margin-top: -10px; margin-bottom: 40px;">የስራ እና የክህሎት መገናኛ ዘመናዊ ድልድይ</p>
+    <!-- 1. WELCOME SCREEN -->
+    <div id="WelcomePage" class="page active" style="text-align: center; padding-top: 50px;">
+        <div style="background-color: var(--card-color); border: 2px solid var(--primary-color); width: 80px; height: 80px; margin: auto; border-radius: 22px; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: bold; color: var(--primary-color);">S</div>
+        <h2 style="margin-top: 20px; font-size: 24px; letter-spacing: 0.5px;">SiraLink TMA</h2>
+        <p style="color: var(--text-muted); font-size: 14px; margin-top: -8px; margin-bottom: 30px;">AI HR Interview Platform</p>
         
-        <div class="role-card" onclick="setRoleAndGo('student')">
-            <div class="role-icon" style="background: #eff6ff; color: var(--primary-light);">🎓</div>
+        <div style="margin: 30px 0;">
+            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=300" style="width: 100%; max-width: 240px; border-radius: 20px; opacity: 0.8;" alt="SiraLink">
+        </div>
+
+        <button class="btn" style="margin-top: 40px;" onclick="goToSignup('student')">I AM A STUDENT</button>
+        <button class="btn btn-blue" style="margin-top: 12px;" onclick="goToSignup('employer')">I AM AN EMPLOYER</button>
+        
+        <p style="font-size: 13px; color: var(--text-muted); margin-top: 25px;">Already have an account? <a href="#" style="color: var(--primary-color); text-decoration: none;" onclick="showAuthPage('LoginPage')">Log In</a></p>
+    </div>
+
+    <!-- 2. SIGN-UP (STUDENT) -->
+    <div id="SignupStudentPage" class="page">
+        <button class="btn btn-back" onclick="showAuthPage('WelcomePage')">⬅ Back</button>
+        <h2>Sign Up: Student</h2>
+        
+        <div class="card">
+            <label>Name</label>
+            <input type="text" id="stu_name" placeholder="Enter your full name">
+
+            <label>University/Institution</label>
+            <input type="text" id="stu_uni" placeholder="Addis Ababa University">
+
+            <label>Major</label>
+            <select id="stu_major">
+                <option value="Software Engineering">Software Engineering</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Information Technology">Information Technology</option>
+            </select>
+
+            <label>Email</label>
+            <input type="email" id="stu_email" placeholder="yonas@example.com">
+
+            <label>Password</label>
+            <input type="password" id="stu_pass" placeholder="••••••••">
+
+            <label>Confirm Password</label>
+            <input type="password" id="stu_pass_conf" placeholder="••••••••">
+
+            <button class="btn" onclick="registerUser('student')">REGISTER</button>
+        </div>
+    </div>
+
+    <!-- 3. SIGN-UP (EMPLOYER) -->
+    <div id="SignupEmployerPage" class="page">
+        <button class="btn btn-back" onclick="showAuthPage('WelcomePage')">⬅ Back</button>
+        <h2>Sign Up: Employer</h2>
+        
+        <div class="card">
+            <label>Company Name</label>
+            <input type="text" id="emp_company" placeholder="e.g., Safaricom">
+
+            <label>Representative Name</label>
+            <input type="text" id="emp_rep" placeholder="Your Full Name">
+
+            <label>Industry</label>
+            <select id="emp_industry">
+                <option value="Telecom">Telecom & Tech</option>
+                <option value="Banking">Banking & Finance</option>
+                <option value="Consulting">Consulting</option>
+            </select>
+
+            <label>Location</label>
+            <input type="text" id="emp_loc" placeholder="📍 Addis Ababa, Ethiopia">
+
+            <label>Business Email</label>
+            <input type="email" id="emp_email" placeholder="hr@company.com">
+
+            <label>Password</label>
+            <input type="password" id="emp_pass" placeholder="••••••••">
+
+            <button class="btn btn-blue" onclick="registerUser('employer')">REGISTER</button>
+        </div>
+    </div>
+
+    <!-- 4. LOGIN SCREEN -->
+    <div id="LoginPage" class="page" style="padding-top: 60px;">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <div style="background-color: var(--card-color); border: 2px solid var(--primary-color); width: 60px; height: 60px; margin: auto; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: bold; color: var(--primary-color);">S</div>
+            <h3 style="margin-top: 12px;">SiraLink TMA</h3>
+        </div>
+
+        <h2>Login</h2>
+        <div class="card">
+            <label>Email / Username</label>
+            <input type="email" id="log_email" placeholder="Enter your email">
+
+            <label>Password</label>
+            <input type="password" id="log_pass" placeholder="••••••••">
+
+            <div style="display: flex; justify-content: space-between; font-size: 13px; margin-top: 15px; color: var(--text-muted);">
+                <div><input type="checkbox" style="width: auto; margin: 0 5px 0 0;"> Remember me</div>
+                <a href="#" style="color: var(--primary-color); text-decoration: none;">Forgot Password?</a>
+            </div>
+
+            <button class="btn" onclick="loginAction()">LOG IN</button>
+        </div>
+    </div>
+
+    <!-- 5. DASHBOARD (STUDENT) -->
+    <div id="StudentDashboard" class="page">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
             <div>
-                <strong style="font-size: 16px;">እኔ ስራ ፈላጊ ነኝ</strong>
-                <div style="font-size: 12px; color: #64748b; margin-top: 2px;">አፕሊኬሽን ለመሙላት፣ በ AI ለመፈተን እና ለመቀጠር</div>
+                <h2 style="margin: 0; font-size: 22px;">Student Dashboard</h2>
+                <div style="color: var(--text-muted); font-size: 14px; margin-top: 4px;" id="welcome_stu_name">Welcome, Yonas! 👋</div>
+            </div>
+            <div style="width: 35px; height: 35px; border-radius: 50%; background-color: var(--primary-color); display: flex; align-items: center; justify-content: center; font-weight: bold;">Y</div>
+        </div>
+
+        <h4>MY INTERVIEWS</h4>
+        <div class="card">
+            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">Upcoming mock interviews</div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
+                <span>📝 Mock 1 (Technical)</span>
+                <span style="color: var(--text-muted);">05/10/26 14:00</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px;">
+                <span>👔 Mock 2 (HR)</span>
+                <span style="color: var(--text-muted);">07/10/26 10:00</span>
             </div>
         </div>
 
-        <div class="role-card" onclick="setRoleAndGo('employer')">
-            <div class="role-icon" style="background: #ecfdf5; color: var(--success);">🏢</div>
-            <div>
-                <strong style="font-size: 16px;">እኔ ቀጣሪ ድርጅት ነኝ</strong>
-                <div style="font-size: 12px; color: #64748b; margin-top: 2px;">የስራ ማስታወቂያ ለመለጠፍ እና ብቁ እጩዎችን በ AI ለመምረጥ</div>
+        <h4>SKILL ASSESSMENT</h4>
+        <div class="skill-grid">
+            <div class="skill-box">
+                <div class="skill-icon">🐍</div>
+                <div style="font-size: 13px; font-weight: bold;">Python</div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div>
+            </div>
+            <div class="skill-box">
+                <div class="skill-icon">⚛️</div>
+                <div style="font-size: 13px; font-weight: bold;">React</div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 65%;"></div></div>
+            </div>
+            <div class="skill-box">
+                <div class="skill-icon">👥</div>
+                <div style="font-size: 13px; font-weight: bold;">Teamwork</div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
             </div>
         </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 25px; margin-bottom: 10px;">
+            <h4 style="margin: 0;">JOB FEED</h4>
+            <span style="color: var(--primary-color); font-size: 13px; cursor: pointer;">See all</span>
+        </div>
+
+        <div id="student_job_feed">
+            <div class="card" style="display: flex; gap: 12px; align-items: center;">
+                <div style="background-color: #1a222d; padding: 10px; border-radius: 12px; font-size: 20px;">🇪🇹</div>
+                <div style="flex-grow: 1;">
+                    <div style="font-weight: bold; font-size: 14px;">Frontend Dev - Ethio Telecom</div>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Frontend dev with telecom disruption experience...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. DASHBOARD (EMPLOYER) -->
+    <div id="EmployerDashboard" class="page">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div>
+                <h2 style="margin: 0; font-size: 22px;">Employer Dashboard</h2>
+                <div style="color: var(--text-muted); font-size: 14px; margin-top: 4px;" id="welcome_emp_name">Welcome, CBE HR! 💼</div>
+            </div>
+            <div style="width: 35px; height: 35px; border-radius: 50%; background-color: var(--secondary-color); display: flex; align-items: center; justify-content: center; font-weight: bold;">HR</div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <h4>JOB POSTINGS</h4>
+            <span style="color: var(--text-muted); font-size: 12px;">Active jobs</span>
+        </div>
+        
+        <div class="card" style="padding: 10px 16px;">
+            <div style="padding: 12px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; font-size: 14px;">
+                <span>💼 Frontend Dev</span> <span>❯</span>
+            </div>
+            <div style="padding: 12px 0; display: flex; justify-content: space-between; font-size: 14px;">
+                <span>🎨 UX/UI Designer</span> <span>❯</span>
+            </div>
+        </div>
+
+        <button class="btn" style="margin-top: 5px; margin-bottom: 20px;" onclick="openJobPostModal()">POST NEW JOB</button>
+
+        <h4>AI MATCHES</h4>
+        <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">Applicant cards</div>
+        <div class="talent-list">
+            <div class="talent-card">
+                <div class="talent-img" style="color: #ffb800;">AB</div>
+                <div style="font-size: 12px; font-weight: bold; margin-top: 6px;">Abebe</div>
+                <div style="font-size: 10px; color: var(--primary-color); margin-top: 2px;">89% Match</div>
+            </div>
+            <div class="talent-card">
+                <div class="talent-img" style="color: #00b074;">SR</div>
+                <div style="font-size: 12px; font-weight: bold; margin-top: 6px;">Sara</div>
+                <div style="font-size: 10px; color: var(--primary-color); margin-top: 2px;">85% Match</div>
+            </div>
+            <div class="talent-card">
+                <div class="talent-img" style="color: #2563eb;">YN</div>
+                <div style="font-size: 12px; font-weight: bold; margin-top: 6px;">Yonas</div>
+                <div style="font-size: 10px; color: var(--primary-color); margin-top: 2px;">82% Match</div>
+            </div>
+        </div>
+
+        <h4 style="margin-top: 25px;">SCHEDULED INTERVIEWS</h4>
+        <div class="card" style="font-size: 13px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                <span>👩‍ቆ Sara - Interview</span> <span style="color: var(--text-muted);">06/10/26 11:30</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <span>👨‍ቆ Abebe - Technical</span> <span style="color: var(--text-muted);">09/10/26 15:00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION BAR -->
+    <div id="BottomNav" class="bottom-nav">
+        <div class="nav-item active-nav" onclick="handleNavClick('home')">
+            <span class="nav-icon">🏠</span>
+            <span>Home</span>
+        </div>
+        <div class="nav-item" onclick="handleNavClick('interviews')">
+            <span class="nav-icon">📅</span>
+            <span>Interviews</span>
+        </div>
+        <div class="nav-item" onclick="handleNavClick('community')">
+            <span class="nav-icon">💬</span>
+            <span>Community</span>
+        </div>
+        <div class="nav-item" onclick="handleNavClick('profile')">
+            <span class="nav-icon">👤</span>
+            <span>Profile</span>
+        </div>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+
+        let sessionUser = { name: 'Yonas', role: 'student' };
+
+        function showAuthPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            document.getElementById('BottomNav').style.display = 'none';
+        }
+
+        function goToSignup(role) {
+            if(role === 'student') {
+                showAuthPage('SignupStudentPage');
+            } else {
+                showAuthPage('SignupEmployerPage');
+            }
+        }
+
+        function registerUser(role) {
+            if(role === 'student') {
+                const name = document.getElementById('stu_name').value.trim();
+                if(!name) { alert('Please enter your name'); return; }
+                sessionUser.name = name;
+                sessionUser.role = 'student';
+            } else {
+                const comp = document.getElementById('emp_company').value.trim();
+                if(!comp) { alert('Please enter company name'); return; }
+                sessionUser.name = comp;
+                sessionUser.role = 'employer';
+            }
+            alert('Registration Successful! 🎉');
+            enterDashboard();
+        }
+
+        function loginAction() {
+            const email = document.getElementById('log_email').value.trim();
+            if(!email) { alert('Please enter your email'); return; }
+            
+            if(email.includes('employer') || email.includes('hr')) {
+                sessionUser.role = 'employer';
+                sessionUser.name = "CBE HR";
+            } else {
+                sessionUser.role = 'student';
+                sessionUser.name = "Yonas";
+            }
+            enterDashboard();
+        }
+
+        function enterDashboard() {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('BottomNav').style.display = 'grid';
+            
+            if(sessionUser.role === 'student') {
+                document.getElementById('welcome_stu_name').innerText = "Welcome, " + sessionUser.name + "! 👋";
+                document.getElementById('StudentDashboard').classList.add('active');
+            } else {
+                document.getElementById('welcome_emp_name').innerText = "Welcome, " + sessionUser.name + "! 💼";
+                document.getElementById('EmployerDashboard').classList.add('active');
+            }
+        }
+
+        function handleNavClick(type) {
+            // Update active state in UI nav items
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active-nav'));
+            event.currentTarget.classList.add('active-nav');
+
+            if(type === 'home') {
+                enterDashboard();
+            } else {
+                alert(type.toUpperCase() + " section is coming soon in the next update!");
+            }
+        }
+
+        function openJobPostModal() {
+            const title = prompt("Enter Job Title:");
+            if(!title) return;
+            
+            const studentFeed = document.getElementById('student_job_feed');
+            const newCard = document.createElement('div');
+            newCard.className = 'card';
+            newCard.style.display = 'flex';
+            newCard.style.gap = '12px';
+            newCard.style.alignItems = 'center';
+            newCard.innerHTML = `<div style="background-color: #1a222d; padding: 10px; border-radius: 12px; font-size: 20px;">🚀</div><div><div style="font-weight: bold; font-size: 14px;">${title} - ${sessionUser.name}</div><div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">New opening directly posted from the dashboard.</div></div>`;
+            
+            studentFeed.insertBefore(newCard, studentFeed.firstChild);
+            alert("🚀 Job Posted Successfully! Students can see it live.");
+        }
+    </script>
+</body>
+</html>
 
         <button class="btn btn-outline" style="margin-top: 30px;" onclick="showPage('LoginPage')">አካውንት አለኝ? ግባ (Login)</button>
     </div>
