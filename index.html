@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SiraLink TMA - Fixed Screen Edition</title>
+    <title>SiraLink TMA - Live Edition</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
@@ -112,6 +112,7 @@
             border-color: var(--primary-color);
         }
 
+        /* Buttons */
         .btn {
             background-color: var(--primary-color);
             color: #ffffff;
@@ -119,15 +120,16 @@
             border-radius: 12px;
             padding: 14px;
             width: 100%;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 12px;
-            flex-shrink: 0;
+            margin-top: 15px;
+            transition: opacity 0.2s;
         }
 
+        .btn:active { opacity: 0.8; }
         .btn-blue { background-color: var(--secondary-color); }
-        
+
         .btn-logout {
             background: transparent;
             color: var(--danger-color);
@@ -153,8 +155,9 @@
             align-self: flex-start;
         }
 
+        /* Bottom Nav Bar */
         .bottom-nav {
-            position: absolute;
+            position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
@@ -162,7 +165,9 @@
             border-top: 1px solid var(--border-color);
             display: none;
             grid-template-columns: repeat(4, 1fr);
-            padding: 10px 0;
+            padding: 8px 0;
+            max-width: 480px;
+            margin: auto;
             z-index: 100;
         }
 
@@ -180,31 +185,38 @@
         .nav-item.active-nav { color: var(--primary-color); }
         .nav-icon { font-size: 18px; }
 
+        /* Skill Grid */
         .skill-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-top: 5px;
+            gap: 10px;
+            margin-top: 8px;
             flex-shrink: 0;
         }
 
         .skill-box {
-            background-color: var(--input-color);
+            background-color: var(--card-color);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 10px;
+            padding: 12px 8px;
             text-align: center;
+        }
+
+        .skill-icon {
+            font-size: 22px;
+            margin-bottom: 4px;
         }
 
         .progress-bar {
             background-color: var(--border-color);
             border-radius: 4px;
             height: 5px;
-            margin-top: 6px;
+            margin-top: 8px;
             overflow: hidden;
         }
         .progress-fill { background-color: var(--primary-color); height: 100%; }
 
+        /* Talent List Horizontal scrolling */
         .talent-list {
             display: flex;
             gap: 10px;
@@ -216,13 +228,13 @@
             background-color: var(--input-color);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 8px;
+            padding: 10px;
             text-align: center;
-            min-width: 85px;
+            min-width: 90px;
         }
         .talent-img {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             background-color: #2a3544;
             margin: auto;
@@ -232,30 +244,27 @@
             font-weight: bold;
             font-size: 13px;
         }
-        h4 { margin-top: 15px; margin-bottom: 8px; font-size: 13px; letter-spacing: 0.5px; color: var(--text-muted); }
+        h4 { margin-top: 15px; margin-bottom: 8px; font-size: 13px; letter-spacing: 0.5px; color: var(--text-muted); text-transform: uppercase; }
     </style>
 </head>
 <body>
 
     <div class="app-container">
 
-        <!-- 1. WELCOME SCREEN -->
         <div id="WelcomePage" class="page active" style="justify-content: center; text-align: center; padding-bottom: 20px;">
-            <div style="background-color: var(--card-color); border: 2px solid var(--primary-color); width: 75px; height: 75px; margin: auto; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: bold; color: var(--primary-color);">S</div>
-            <h2 style="margin-top: 15px; font-size: 24px;">SiraLink TMA</h2>
-            <p style="color: var(--text-muted); font-size: 14px; margin-top: -8px; margin-bottom: 20px;">AI HR Interview Platform</p>
+            <div style="background-color: var(--card-color); border: 2px solid var(--primary-color); width: 65px; height: 65px; margin: auto; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: bold; color: var(--primary-color);">S</div>
+            <h2 style="margin-top: 12px; font-size: 24px; margin-bottom: 2px;">SiraLink TMA</h2>
+            <p style="color: var(--text-muted); font-size: 13px; margin-top: 0; margin-bottom: 20px;">AI HR Interview Platform</p>
             
             <div style="margin: 15px 0;">
-                <!-- አዲስ ይበልጥ ማራኪ የቴክኖሎጂ ምስል -->
-                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=400" style="width: 100%; max-width: 220px; height: 140px; object-fit: cover; border-radius: 20px; opacity: 0.9;" alt="SiraLink">
+                <img src="https://cdni.iconscout.com/illustration/premium/thumb/job-deal-illustration-download-in-svg-png-gif-formats--shaking-hands-agreement-partnership-recruitment-pack-business-illustrations-5219463.png?f=webp" style="width: 100%; max-width: 220px; opacity: 0.95;" alt="SiraLink Deal">
             </div>
 
-            <button class="btn" style="margin-top: 25px;" onclick="goToSignup('student')">I AM A STUDENT</button>
+            <button class="btn" style="margin-top: 20px;" onclick="goToSignup('student')">I AM A STUDENT</button>
             <button class="btn btn-blue" style="margin-top: 10px;" onclick="goToSignup('employer')">I AM AN EMPLOYER</button>
-            <p style="font-size: 13px; color: var(--text-muted); margin-top: 20px;">Already have an account? <a href="#" style="color: var(--primary-color); text-decoration: none;" onclick="showAuthPage('LoginPage')">Log In</a></p>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 18px;">Already have an account? <a href="#" style="color: var(--primary-color); text-decoration: none; font-weight: bold;" onclick="showAuthPage('LoginPage')">Log In</a></p>
         </div>
 
-        <!-- 2. SIGN-UP (STUDENT) -->
         <div id="SignupStudentPage" class="page">
             <button class="btn btn-back" onclick="showAuthPage('WelcomePage')">⬅ Back</button>
             <h2 style="margin: 0 0 10px 0; font-size: 20px;">Sign Up: Student</h2>
@@ -263,7 +272,7 @@
                 <div class="card">
                     <label>Name</label><input type="text" id="stu_name" placeholder="Enter your full name">
                     <label>University/Institution</label><input type="text" id="stu_uni" placeholder="Addis Ababa University">
-                    <label>Major / Department</label><input type="text" id="stu_major" placeholder="e.g., Software Engineering">
+                    <label>Major</label><input type="text" id="stu_major" placeholder="e.g., Software Engineering">
                     <label>Email (@gmail.com)</label><input type="email" id="stu_email" placeholder="yonas@gmail.com">
                     <label>Password (Min. 8 characters)</label><input type="password" id="stu_pass" placeholder="••••••••">
                     <label>Confirm Password</label><input type="password" id="stu_pass_conf" placeholder="••••••••">
@@ -272,7 +281,6 @@
             <button class="btn" onclick="registerUser('student')">REGISTER</button>
         </div>
 
-        <!-- 3. SIGN-UP (EMPLOYER) -->
         <div id="SignupEmployerPage" class="page">
             <button class="btn btn-back" onclick="showAuthPage('WelcomePage')">⬅ Back</button>
             <h2 style="margin: 0 0 10px 0; font-size: 20px;">Sign Up: Employer</h2>
@@ -282,36 +290,39 @@
                     <label>Representative Name</label><input type="text" id="emp_rep" placeholder="Your Full Name">
                     <label>Industry</label>
                     <select id="emp_industry">
-                        <option value="Telecom">Telecom & Tech</option>
-                        <option value="Banking">Banking & Finance</option>
+                        <option value="Telecom & Tech">Telecom & Tech</option>
+                        <option value="Banking & Finance">Banking & Finance</option>
                     </select>
                     <label>Location</label><input type="text" id="emp_loc" placeholder="📍 Addis Ababa">
-                    <label>Business Email (@gmail.com)</label><input type="email" id="emp_email" placeholder="hr@gmail.com">
+                    <label>Business Email (@gmail.com)</label><input type="email" id="emp_email" placeholder="hr@company.com">
                     <label>Password (Min. 8 characters)</label><input type="password" id="emp_pass" placeholder="••••••••">
                 </div>
             </div>
             <button class="btn btn-blue" onclick="registerUser('employer')">REGISTER</button>
         </div>
 
-        <!-- 4. LOGIN SCREEN -->
         <div id="LoginPage" class="page" style="justify-content: center;">
             <button class="btn btn-back" onclick="showAuthPage('WelcomePage')">⬅ Back</button>
-            <div style="text-align: center; margin-bottom: 25px;">
+            <div style="text-align: center; margin-bottom: 20px;">
                 <div style="background-color: var(--card-color); border: 2px solid var(--primary-color); width: 55px; height: 55px; margin: auto; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; color: var(--primary-color);">S</div>
+                <h3 style="margin-top: 10px; margin-bottom:0;">SiraLink TMA</h3>
             </div>
-            <h2 style="margin: 0 0 15px 0;">Login</h2>
+            <h2 style="margin: 0 0 12px 0; font-size: 20px;">Login</h2>
             <div class="card">
-                <label>Gmail Address</label><input type="email" id="log_email" placeholder="example@gmail.com">
+                <label>Email / Username</label><input type="email" id="log_email" placeholder="example@gmail.com">
                 <label>Password</label><input type="password" id="log_pass" placeholder="••••••••">
+                <div style="display: flex; justify-content: space-between; font-size: 12px; margin-top: 15px; color: var(--text-muted);">
+                    <div><input type="checkbox" style="width: auto; margin: 0 5px 0 0;"> Remember me</div>
+                    <a href="#" style="color: var(--primary-color); text-decoration: none;">Forgot Password?</a>
+                </div>
             </div>
             <button class="btn" onclick="loginAction()">LOG IN</button>
         </div>
 
-        <!-- 5. DASHBOARD (STUDENT - HOME) -->
         <div id="StudentDashboard" class="page">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-shrink: 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-shrink: 0;">
                 <div>
-                    <h2 style="margin: 0; font-size: 20px;">Student Dashboard</h2>
+                    <h2 style="margin: 0; font-size: 19px;">Student Dashboard</h2>
                     <div style="color: var(--text-muted); font-size: 13px; margin-top: 2px;" id="welcome_stu_name">Welcome, Yonas! 👋</div>
                 </div>
                 <div style="display: flex; align-items: center; gap: 8px;">
@@ -321,45 +332,51 @@
             </div>
 
             <div class="scrollable-content">
-                <h4>MY INTERVIEWS</h4>
+                <h4>Upcoming mock interviews</h4>
                 <div class="card" style="margin-bottom: 10px;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px;">
-                        <span>📝 Mock 1 (Technical)</span> <span style="color: var(--text-muted);">05/10/26 14:00</span>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
+                        <span>💼 Mock 1 (Technical)</span> <span style="color: var(--text-muted);">05/10/26 14:00</span>
                     </div>
                     <div style="display: flex; justify-content: space-between; font-size: 13px;">
                         <span>👔 Mock 2 (HR)</span> <span style="color: var(--text-muted);">07/10/26 10:00</span>
                     </div>
                 </div>
 
-                <h4>SKILL ASSESSMENT</h4>
+                <h4>Skill Assessment</h4>
                 <div class="skill-grid">
-                    <div class="skill-box"><div>🐍 Python</div><div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div></div>
-                    <div class="skill-box"><div>⚛️ React</div><div class="progress-bar"><div class="progress-fill" style="width: 65%;"></div></div></div>
-                    <div class="skill-box"><div>👥 Teamwork</div><div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div></div>
+                    <div class="skill-box"><div class="skill-icon">🐍</div><div style="font-size:12px; font-weight:bold;">Python</div><div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div><span style="font-size:10px; color:var(--text-muted);">80</span></div>
+                    <div class="skill-box"><div class="skill-icon">⚛️</div><div style="font-size:12px; font-weight:bold;">React</div><div class="progress-bar"><div class="progress-fill" style="width: 65%;"></div></div><span style="font-size:10px; color:var(--text-muted);">65</span></div>
+                    <div class="skill-box"><div class="skill-icon">👥</div><div style="font-size:12px; font-weight:bold;">Teamwork</div><div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div><span style="font-size:10px; color:var(--text-muted);">90</span></div>
                 </div>
 
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; margin-bottom: 8px;">
-                    <h4 style="margin: 0;">JOB FEED</h4>
-                    <span style="color: var(--primary-color); font-size: 12px;">See all</span>
+                    <h4 style="margin: 0;">Featured job listings</h4>
+                    <span style="color: var(--primary-color); font-size: 12px; cursor:pointer;">See all</span>
                 </div>
 
                 <div id="student_job_feed">
-                    <div class="card" style="display: flex; gap: 10px; align-items: center; padding: 12px; margin-bottom: 8px;">
-                        <div style="font-size: 18px;">🇪🇹</div>
+                    <div class="card" style="display: flex; gap: 12px; align-items: center; padding: 12px; margin-bottom: 8px;">
+                        <div style="width:36px; height:36px; background-color:#1e293b; display:flex; align-items:center; justify-content:center; border-radius:8px; font-size:18px;">🇪🇹</div>
                         <div>
                             <div style="font-weight: bold; font-size: 13px;">Frontend Dev - Ethio Telecom</div>
-                            <div style="font-size: 11px; color: var(--text-muted);">Disruption experience required...</div>
+                            <div style="font-size: 11px; color: var(--text-muted);">Disruption experience required & teamwork...</div>
+                        </div>
+                    </div>
+                    <div class="card" style="display: flex; gap: 12px; align-items: center; padding: 12px; margin-bottom: 8px;">
+                        <div style="width:36px; height:36px; background-color:#1e293b; display:flex; align-items:center; justify-content:center; border-radius:8px; font-size:18px;">🦁</div>
+                        <div>
+                            <div style="font-weight: bold; font-size: 13px;">Software Eng - Safaricom</div>
+                            <div style="font-size: 11px; color: var(--text-muted);">Accelerating candidate caliber, addis ababa...</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 6. DASHBOARD (EMPLOYER - HOME) -->
         <div id="EmployerDashboard" class="page">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-shrink: 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-shrink: 0;">
                 <div>
-                    <h2 style="margin: 0; font-size: 20px;">Employer Dashboard</h2>
+                    <h2 style="margin: 0; font-size: 19px;">Employer Dashboard</h2>
                     <div style="color: var(--text-muted); font-size: 13px; margin-top: 2px;" id="welcome_emp_name">Welcome, CBE HR! 💼</div>
                 </div>
                 <div style="display: flex; align-items: center; gap: 8px;">
@@ -369,85 +386,86 @@
             </div>
 
             <div class="scrollable-content">
-                <h4>JOB POSTINGS</h4>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <h4>Job Postings</h4>
+                    <span style="color: var(--primary-color); font-size: 11px;">Active jobs</span>
+                </div>
                 <div class="card" style="padding: 4px 12px; margin-bottom: 10px;">
-                    <div style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; font-size: 13px;">
-                        <span>💼 Frontend Dev</span> <span>❯</span>
+                    <div style="padding: 12px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; font-size: 13px; align-items:center;">
+                        <span>🧳 Frontend Dev</span> <span style="color:var(--text-muted);">❯</span>
                     </div>
-                    <div style="padding: 10px 0; display: flex; justify-content: space-between; font-size: 13px;">
-                        <span>🎨 UX/UI Designer</span> <span>❯</span>
+                    <div style="padding: 12px 0; display: flex; justify-content: space-between; font-size: 13px; align-items:center;">
+                        <span>🎨 UX/UI Designer</span> <span style="color:var(--text-muted);">❯</span>
                     </div>
                 </div>
 
-                <button class="btn" style="margin-top: 0; margin-bottom: 15px; padding: 10px;" onclick="openJobPostModal()">POST NEW JOB</button>
+                <button class="btn" style="margin-top: 0; margin-bottom: 15px; padding: 11px; font-size:14px;" onclick="openJobPostModal()">POST NEW JOB</button>
 
-                <h4>AI MATCHES</h4>
+                <h4>AI Matches (Applicant Cards)</h4>
                 <div class="talent-list">
-                    <div class="talent-card"><div class="talent-img" style="color: #ffb800;">AB</div><div style="font-size: 11px; font-weight: bold; margin-top: 4px;">Abebe</div><div style="font-size: 10px; color: var(--primary-color);">89%</div></div>
-                    <div class="talent-card"><div class="talent-img" style="color: #00b074;">SR</div><div style="font-size: 11px; font-weight: bold; margin-top: 4px;">Sara</div><div style="font-size: 10px; color: var(--primary-color);">85%</div></div>
-                    <div class="talent-card"><div class="talent-img" style="color: #2563eb;">YN</div><div style="font-size: 11px; font-weight: bold; margin-top: 4px;">Yonas</div><div style="font-size: 10px; color: var(--primary-color);">82%</div></div>
+                    <div class="talent-card"><div class="talent-img" style="color: #ffb800; background-color:#2e2a1f;">AB</div><div style="font-size: 12px; font-weight: bold; margin-top: 6px;">Abebe (89%)</div><div style="font-size: 9px; color: var(--text-muted); margin-top:2px;">AI matching 89</div></div>
+                    <div class="talent-card"><div class="talent-img" style="color: #00b074; background-color:#1b2e25;">SR</div><div style="font-size: 12px; font-weight: bold; margin-top: 6px;">Sara (85%)</div><div style="font-size: 9px; color: var(--text-muted); margin-top:2px;">AI matching 85</div></div>
+                    <div class="talent-card"><div class="talent-img" style="color: #2563eb; background-color:#1a253d;">YN</div><div style="font-size: 12px; font-weight: bold; margin-top: 6px;">Yonas (82%)</div><div style="font-size: 9px; color: var(--text-muted); margin-top:2px;">AI matching 82</div></div>
                 </div>
 
-                <h4>SCHEDULED INTERVIEWS</h4>
-                <div class="card" style="font-size: 12px; padding: 12px;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px;"><span>👩‍💼 Sara</span> <span style="color: var(--text-muted);">06/10/26 11:30</span></div>
-                    <div style="display: flex; justify-content: space-between;"><span>👨‍💼 Abebe</span> <span style="color: var(--text-muted);">09/10/26 15:00</span></div>
+                <h4>Upcoming interviews with candidates</h4>
+                <div class="card" style="font-size: 13px; padding: 14px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px; align-items:center;"><span>👩‍💼 Sara</span> <span style="color: var(--text-muted);">06/10/26 11:30</span></div>
+                    <div style="display: flex; justify-content: space-between; align-items:center;"><span>👨‍💼 Abebe</span> <span style="color: var(--text-muted);">09/10/26 15:00</span></div>
                 </div>
             </div>
         </div>
 
-        <!-- 7. DYNAMIC PAGES FOR BOTTOM NAV (ACTIVE SECTIONS) -->
         <div id="InterviewsPage" class="page">
-            <h2 style="font-size: 20px; margin-bottom: 15px;">📅 Interviews Hub</h2>
+            <h2 style="font-size: 20px; margin-bottom: 12px;">📅 Interviews Center</h2>
             <div class="scrollable-content">
                 <div class="card">
-                    <h3 style="font-size: 15px; color: var(--primary-color); margin-top:0;">Upcoming Live Sessions</h3>
-                    <p style="font-size: 13px; color: var(--text-muted);">No live company panel interviews scheduled for this week.</p>
+                    <h3 style="font-size: 15px; color: var(--primary-color); margin-top:0;">Live Automated Schedule</h3>
+                    <p style="font-size: 13px; color: var(--text-muted); line-height:1.4;">Your calendar is synced. AI candidate vetting streams are live and working properly.</p>
                 </div>
                 <div class="card">
-                    <h3 style="font-size: 15px; margin-top:0;">Practice AI Simulators</h3>
-                    <p style="font-size: 12px; margin-bottom: 10px;">Train with our advanced conversational AI recruiter.</p>
-                    <button class="btn" style="padding: 10px; font-size:13px;">Start AI Simulator</button>
+                    <h3 style="font-size: 15px; margin-top:0;">AI Practice Simulator</h3>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Launch real-time text/voice simulated assessments.</p>
+                    <button class="btn" style="padding: 10px; font-size:13px; margin:0;">Launch Simulator</button>
                 </div>
             </div>
         </div>
 
         <div id="CommunityPage" class="page">
-            <h2 style="font-size: 20px; margin-bottom: 15px;">💬 SiraLink Community</h2>
+            <h2 style="font-size: 20px; margin-bottom: 12px;">👥 SiraLink Community</h2>
             <div class="scrollable-content">
                 <div class="card">
-                    <div style="font-weight: bold; font-size:14px; margin-bottom:4px;">📌 Tech Interview Prep Group</div>
-                    <p style="font-size: 12px; color: var(--text-muted); margin:0;">1,240 members are discussing coding challenges right now.</p>
+                    <div style="font-weight: bold; font-size:14px; margin-bottom:4px; color:var(--primary-color);"># interview-prep</div>
+                    <p style="font-size: 12px; color: var(--text-muted); margin:0;">Share experience on technical algorithmic screening questions.</p>
                 </div>
                 <div class="card">
-                    <div style="font-weight: bold; font-size:14px; margin-bottom:4px;">📌 HR Tips & Tricks</div>
-                    <p style="font-size: 12px; color: var(--text-muted); margin:0;">Learn how to format your CV for modern ATS filters.</p>
+                    <div style="font-weight: bold; font-size:14px; margin-bottom:4px;"># job-alerts</div>
+                    <p style="font-size: 12px; color: var(--text-muted); margin:0;">Real-time feed for junior software engineer jobs in Addis Ababa.</p>
                 </div>
             </div>
         </div>
 
         <div id="ProfilePage" class="page">
-            <h2 style="font-size: 20px; margin-bottom: 15px;">👤 My Account Profile</h2>
+            <h2 style="font-size: 20px; margin-bottom: 12px;">👤 Account Profile</h2>
             <div class="scrollable-content">
-                <div class="card" style="text-align: center;">
-                    <div style="width: 60px; height: 60px; border-radius: 50%; background-color: var(--primary-color); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 22px; margin: auto;" id="profile_avatar">Y</div>
-                    <h3 style="margin-top:10px; margin-bottom:2px;" id="profile_name">Yonas</h3>
-                    <p style="font-size:12px; color:var(--text-muted); margin:0;" id="profile_role_text">Student Member</p>
+                <div class="card" style="text-align: center; padding: 20px 16px;">
+                    <div style="width: 55px; height: 55px; border-radius: 50%; background-color: var(--primary-color); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 20px; margin: auto;" id="prof_avatar">Y</div>
+                    <h3 style="margin-top:10px; margin-bottom:2px;" id="prof_name">Yonas</h3>
+                    <p style="font-size:12px; color:var(--text-muted); margin:0;" id="prof_role">Student Member</p>
                 </div>
                 <div class="card">
-                    <h4 style="margin-top:0;">Account Metrics</h4>
-                    <p style="font-size: 13px; margin: 4px 0;">Verified Status: <span style="color:var(--primary-color);">Active</span></p>
-                    <p style="font-size: 13px; margin: 4px 0;">Email: <span id="profile_email_text">yonas@gmail.com</span></p>
+                    <h4 style="margin-top:0; margin-bottom:10px;">Security Credentials</h4>
+                    <div style="font-size: 13px; margin-bottom:6px;">Email: <span id="prof_email" style="color:var(--text-muted);">yonas@gmail.com</span></div>
+                    <div style="font-size: 13px;">Status: <span style="color:var(--primary-color); font-weight:bold;">Verified Account</span></div>
                 </div>
             </div>
         </div>
 
-        <!-- FIXED BOTTOM NAVIGATION BAR -->
         <div id="BottomNav" class="bottom-nav">
-            <div class="nav-item active-nav" id="nav_home" onclick="handleNavClick('home')"><span class="nav-icon">🏠</span><span>Home</span></div>
-            <div class="nav-item" id="nav_interviews" onclick="handleNavClick('interviews')"><span class="nav-icon">📅</span><span>Interviews</span></div>
-            <div class="nav-item" id="nav_community" onclick="handleNavClick('community')"><span class="nav-icon">💬</span><span>Community</span></div>
-            <div class="nav-item" id="nav_profile" onclick="handleNavClick('profile')"><span class="nav-icon">👤</span><span>Profile</span></div>
+            <div class="nav-item active-nav" id="btn_nav_home" onclick="handleNavClick('home')"><span class="nav-icon">🏠</span><span id="lbl_home">Home</span></div>
+            <div class="nav-item" id="btn_nav_interviews" onclick="handleNavClick('interviews')"><span class="nav-icon">📋</span><span id="lbl_interviews">Interviews</span></div>
+            <div class="nav-item" id="btn_nav_community" onclick="handleNavClick('community')"><span class="nav-icon">👥</span><span id="lbl_comm">Community</span></div>
+            <div class="nav-item" id="btn_nav_profile" onclick="handleNavClick('profile')"><span class="nav-icon">👤</span><span id="lbl_prof">Profile</span></div>
         </div>
 
     </div>
@@ -456,7 +474,7 @@
         const tg = window.Telegram.WebApp;
         tg.expand();
 
-        // በጊዜያዊነት ዳታዎችን ለማስቀመጥ localstorage እንጠቀማለን (ለሙከራ እንዲመች default አካውንት ይኖረዋል)
+        // ደህንነቱ የተጠበቀ ሴሽን እና በሊስት የተመዘገቡ ተጠቃሚዎች
         let sessionUser = { name: 'Yonas', role: 'student', email: 'yonas@gmail.com' };
 
         function showAuthPage(pageId) {
@@ -470,7 +488,7 @@
             else showAuthPage('SignupEmployerPage');
         }
 
-        // ጠንካራ የሪጅስትሬሽን ማረጋገጫ (Validation)
+        // ሪጅስትሬሽን ማረጋገጫ (Registration Validation)
         function registerUser(role) {
             const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
 
@@ -492,7 +510,7 @@
                     alert('ፓስወርድ ቢያንስ 8 ካራክተር መሆን አለበት!'); return;
                 }
                 if(pass !== confPass) {
-                    alert('የያስገቡት ሁለቱ ፓስወርዶች አይመሳሰሉም!'); return;
+                    alert('ያስገቧቸው ሁለቱ ፓስወርዶች አይመሳሰሉም!'); return;
                 }
 
                 sessionUser = { name: name, role: 'student', email: email };
@@ -524,7 +542,7 @@
             enterDashboard();
         }
 
-        // ጠንካራ የሎጊን ማረጋገጫ (Login Validation)
+        // ሎጊን ማረጋገጫ (Login Validation)
         function loginAction() {
             const email = document.getElementById('log_email').value.trim();
             const pass = document.getElementById('log_pass').value;
@@ -533,16 +551,16 @@
                 alert('እባክዎ ኢሜይል እና ፓስወርድ ያስገቡ!'); return;
             }
 
-            // ለሙከራ እንዲያመች የነበረው default አካውንት
+            // Default account ለሙከራ
             if(email === 'yonas@gmail.com' && pass === '12345678') {
                 sessionUser = { role: 'student', name: "Yonas", email: email };
                 enterDashboard();
                 return;
             }
 
-            const localData = localStorage.getItem(email);
-            if(localData) {
-                const userData = JSON.parse(localData);
+            const storedAccount = localStorage.getItem(email);
+            if(storedAccount) {
+                const userData = JSON.parse(storedAccount);
                 if(userData.pass === pass) {
                     sessionUser = { role: userData.role, name: userData.name, email: email };
                     enterDashboard();
@@ -550,7 +568,7 @@
                     alert('የተሳሳተ ፓስወርድ አስገብተዋል!');
                 }
             } else {
-                alert('ይህ ኢሜይል አልተመዘገበም! እባክዎ አስቀድመው ይመዝገቡ።');
+                alert('ይህ ኢሜይል አልተመዘገበም!');
             }
         }
 
@@ -558,15 +576,27 @@
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById('BottomNav').style.display = 'grid';
             
-            // የ Bottom Nav ማድመቂያን ወደ Home መመለስ
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active-nav'));
-            document.getElementById('nav_home').classList.add('active-nav');
+            // የ Bottom Nav ስሞችን እንደየ ሮሉ መቀየር (በዲዛይኑ መሰረት)
+            if(sessionUser.role === 'student') {
+                document.getElementById('lbl_home').innerText = "Home";
+                document.getElementById('lbl_interviews').innerText = "Interviews";
+                document.getElementById('lbl_comm').innerText = "Community";
+                document.getElementById('lbl_prof').innerText = "Profile";
+            } else {
+                document.getElementById('lbl_home').innerText = "Jobs";
+                document.getElementById('lbl_interviews').innerText = "Talent";
+                document.getElementById('lbl_comm').innerText = "Messages";
+                document.getElementById('lbl_prof').innerText = "Settings";
+            }
 
-            // ፕሮፋይል መረጃዎችን ማደስ
-            document.getElementById('profile_name').innerText = sessionUser.name;
-            document.getElementById('profile_email_text').innerText = sessionUser.email;
-            document.getElementById('profile_avatar').innerText = sessionUser.name.charAt(0).toUpperCase();
-            document.getElementById('profile_role_text').innerText = sessionUser.role === 'student' ? 'Student Member' : 'Employer Recruiter';
+            // የፕሮፋይል ዳታ ማደስ
+            document.getElementById('prof_name').innerText = sessionUser.name;
+            document.getElementById('prof_email').innerText = sessionUser.email;
+            document.getElementById('prof_avatar').innerText = sessionUser.name.charAt(0).toUpperCase();
+            document.getElementById('prof_role').innerText = sessionUser.role === 'student' ? 'Student Member' : 'Employer Recruiter';
+
+            resetNavHighlights();
+            document.getElementById('btn_nav_home').classList.add('active-nav');
 
             if(sessionUser.role === 'student') {
                 document.getElementById('welcome_stu_name').innerText = "Welcome, " + sessionUser.name + "! 👋";
@@ -578,34 +608,33 @@
             }
         }
 
-        // ሙሉ በሙሉ Active የሆኑ የBottom Nav ገጾች ማዘዋወሪያ
-        function handleNavClick(type) {
+        function resetNavHighlights() {
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active-nav'));
+        }
+
+        // ሙሉ በሙሉ አክቲቭ የሆኑ የBottom Nav ገጾች
+        function handleNavClick(type) {
+            resetNavHighlights();
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             
             if(type === 'home') {
-                document.getElementById('nav_home').classList.add('active-nav');
-                if(sessionUser.role === 'student') {
-                    document.getElementById('StudentDashboard').classList.add('active');
-                } else {
-                    document.getElementById('EmployerDashboard').classList.add('active');
-                }
+                document.getElementById('btn_nav_home').classList.add('active-nav');
+                if(sessionUser.role === 'student') document.getElementById('StudentDashboard').classList.add('active');
+                else document.getElementById('EmployerDashboard').classList.add('active');
             } else if(type === 'interviews') {
-                document.getElementById('nav_interviews').classList.add('active-nav');
+                document.getElementById('btn_nav_interviews').classList.add('active-nav');
                 document.getElementById('InterviewsPage').classList.add('active');
             } else if(type === 'community') {
-                document.getElementById('nav_community').classList.add('active-nav');
+                document.getElementById('btn_nav_community').classList.add('active-nav');
                 document.getElementById('CommunityPage').classList.add('active');
             } else if(type === 'profile') {
-                document.getElementById('nav_profile').classList.add('active-nav');
+                document.getElementById('btn_nav_profile').classList.add('active-nav');
                 document.getElementById('ProfilePage').classList.add('active');
             }
         }
 
-        // የላግ አውት ሲስተም
         function logoutEffect() {
             if(confirm('እርግጠኛ ነዎት መውጣት ይፈልጋሉ?')) {
-                // ፎርሞችን ማጽዳት
                 document.getElementById('log_email').value = '';
                 document.getElementById('log_pass').value = '';
                 showAuthPage('WelcomePage');
@@ -618,483 +647,9 @@
             const studentFeed = document.getElementById('student_job_feed');
             const newCard = document.createElement('div');
             newCard.className = 'card';
-            newCard.style.display = 'flex'; newCard.style.gap = '10px'; newCard.style.alignItems = 'center'; newCard.style.padding = '12px'; newCard.style.marginBottom = '8px';
-            newCard.innerHTML = `<div>🚀</div><div><div style="font-weight: bold; font-size: 13px;">${title} - ${sessionUser.name}</div><div style="font-size: 11px; color: var(--text-muted);">Live from dashboard.</div></div>`;
+            newCard.style.display = 'flex'; newCard.style.gap = '12px'; newCard.style.alignItems = 'center'; newCard.style.padding = '12px'; newCard.style.marginBottom = '8px';
+            newCard.innerHTML = `<div style="width:36px; height:36px; background-color:#1e293b; display:flex; align-items:center; justify-content:center; border-radius:8px; font-size:18px;">🚀</div><div><div style="font-weight: bold; font-size: 13px;">${title} - ${sessionUser.name}</div><div style="font-size: 11px; color: var(--text-muted);">Live from dashboard.</div></div>`;
             studentFeed.insertBefore(newCard, studentFeed.firstChild);
-        }
-    </script>
-</body>
-</html>
-        /* Buttons */
-        .btn {
-            background-color: var(--primary-color);
-            color: #ffffff;
-            border: none;
-            border-radius: 12px;
-            padding: 14px;
-            width: 100%;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 15px;
-            transition: opacity 0.2s;
-        }
-
-        .btn:active {
-            opacity: 0.8;
-        }
-
-        .btn-blue {
-            background-color: var(--secondary-color);
-        }
-
-        .btn-back {
-            background: none;
-            color: var(--primary-color);
-            border: none;
-            width: auto;
-            padding: 0;
-            font-size: 14px;
-            margin-bottom: 15px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-        }
-
-        /* Bottom Nav Bar */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: var(--card-color);
-            border-top: 1px solid var(--border-color);
-            display: none;
-            grid-template-columns: repeat(4, 1fr);
-            padding: 8px 0;
-            max-width: 480px;
-            margin: auto;
-            z-index: 100;
-        }
-
-        .nav-item {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 11px;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .nav-item.active-nav {
-            color: var(--primary-color);
-        }
-
-        .nav-icon {
-            font-size: 20px;
-        }
-
-        /* Badges & Progress */
-        .badge {
-            background-color: rgba(0, 176, 116, 0.15);
-            color: var(--primary-color);
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: bold;
-        }
-
-        .skill-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .skill-box {
-            background-color: var(--input-color);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 12px;
-            text-align: center;
-        }
-
-        .skill-icon { font-size: 24px; margin-bottom: 5px; }
-
-        .progress-bar {
-            background-color: var(--border-color);
-            border-radius: 4px;
-            height: 6px;
-            margin-top: 8px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            background-color: var(--primary-color);
-            height: 100%;
-            width: 50%;
-        }
-
-        /* Avatar items */
-        .talent-list {
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            padding-bottom: 5px;
-        }
-        .talent-card {
-            background-color: var(--input-color);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 10px;
-            text-align: center;
-            min-width: 90px;
-        }
-        .talent-img {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background-color: #2a3544;
-            margin: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- 1. WELCOME SCREEN -->
-    <div id="WelcomePage" class="page active" style="text-align: center; padding-top: 50px;">
-        <div style="background-color: var(--card-color); border: 2px solid var(--primary-color); width: 80px; height: 80px; margin: auto; border-radius: 22px; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: bold; color: var(--primary-color);">S</div>
-        <h2 style="margin-top: 20px; font-size: 24px; letter-spacing: 0.5px;">SiraLink TMA</h2>
-        <p style="color: var(--text-muted); font-size: 14px; margin-top: -8px; margin-bottom: 30px;">AI HR Interview Platform</p>
-        
-        <div style="margin: 30px 0;">
-            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=300" style="width: 100%; max-width: 240px; border-radius: 20px; opacity: 0.8;" alt="SiraLink">
-        </div>
-
-        <button class="btn" style="margin-top: 40px;" onclick="goToSignup('student')">I AM A STUDENT</button>
-        <button class="btn btn-blue" style="margin-top: 12px;" onclick="goToSignup('employer')">I AM AN EMPLOYER</button>
-        
-        <p style="font-size: 13px; color: var(--text-muted); margin-top: 25px;">Already have an account? <a href="#" style="color: var(--primary-color); text-decoration: none;" onclick="showAuthPage('LoginPage')">Log In</a></p>
-    </div>
-
-    <!-- 2. SIGN-UP (STUDENT) -->
-    <div id="SignupStudentPage" class="page">
-        <button class="btn btn-back" onclick="showAuthPage('WelcomePage')">⬅ Back</button>
-        <h2>Sign Up: Student</h2>
-        
-        <div class="card">
-            <label>Name</label>
-            <input type="text" id="stu_name" placeholder="Enter your full name">
-
-            <label>University/Institution</label>
-            <input type="text" id="stu_uni" placeholder="Addis Ababa University">
-
-            <label>Major</label>
-            <select id="stu_major">
-                <option value="Software Engineering">Software Engineering</option>
-                <option value="Computer Science">Computer Science</option>
-                <option value="Information Technology">Information Technology</option>
-            </select>
-
-            <label>Email</label>
-            <input type="email" id="stu_email" placeholder="yonas@example.com">
-
-            <label>Password</label>
-            <input type="password" id="stu_pass" placeholder="••••••••">
-
-            <label>Confirm Password</label>
-            <input type="password" id="stu_pass_conf" placeholder="••••••••">
-
-            <button class="btn" onclick="registerUser('student')">REGISTER</button>
-        </div>
-    </div>
-
-    <!-- 3. SIGN-UP (EMPLOYER) -->
-    <div id="SignupEmployerPage" class="page">
-        <button class="btn btn-back" onclick="showAuthPage('WelcomePage')">⬅ Back</button>
-        <h2>Sign Up: Employer</h2>
-        
-        <div class="card">
-            <label>Company Name</label>
-            <input type="text" id="emp_company" placeholder="e.g., Safaricom">
-
-            <label>Representative Name</label>
-            <input type="text" id="emp_rep" placeholder="Your Full Name">
-
-            <label>Industry</label>
-            <select id="emp_industry">
-                <option value="Telecom">Telecom & Tech</option>
-                <option value="Banking">Banking & Finance</option>
-                <option value="Consulting">Consulting</option>
-            </select>
-
-            <label>Location</label>
-            <input type="text" id="emp_loc" placeholder="📍 Addis Ababa, Ethiopia">
-
-            <label>Business Email</label>
-            <input type="email" id="emp_email" placeholder="hr@company.com">
-
-            <label>Password</label>
-            <input type="password" id="emp_pass" placeholder="••••••••">
-
-            <button class="btn btn-blue" onclick="registerUser('employer')">REGISTER</button>
-        </div>
-    </div>
-
-    <!-- 4. LOGIN SCREEN -->
-    <div id="LoginPage" class="page" style="padding-top: 60px;">
-        <div style="text-align: center; margin-bottom: 40px;">
-            <div style="background-color: var(--card-color); border: 2px solid var(--primary-color); width: 60px; height: 60px; margin: auto; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: bold; color: var(--primary-color);">S</div>
-            <h3 style="margin-top: 12px;">SiraLink TMA</h3>
-        </div>
-
-        <h2>Login</h2>
-        <div class="card">
-            <label>Email / Username</label>
-            <input type="email" id="log_email" placeholder="Enter your email">
-
-            <label>Password</label>
-            <input type="password" id="log_pass" placeholder="••••••••">
-
-            <div style="display: flex; justify-content: space-between; font-size: 13px; margin-top: 15px; color: var(--text-muted);">
-                <div><input type="checkbox" style="width: auto; margin: 0 5px 0 0;"> Remember me</div>
-                <a href="#" style="color: var(--primary-color); text-decoration: none;">Forgot Password?</a>
-            </div>
-
-            <button class="btn" onclick="loginAction()">LOG IN</button>
-        </div>
-    </div>
-
-    <!-- 5. DASHBOARD (STUDENT) -->
-    <div id="StudentDashboard" class="page">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <div>
-                <h2 style="margin: 0; font-size: 22px;">Student Dashboard</h2>
-                <div style="color: var(--text-muted); font-size: 14px; margin-top: 4px;" id="welcome_stu_name">Welcome, Yonas! 👋</div>
-            </div>
-            <div style="width: 35px; height: 35px; border-radius: 50%; background-color: var(--primary-color); display: flex; align-items: center; justify-content: center; font-weight: bold;">Y</div>
-        </div>
-
-        <h4>MY INTERVIEWS</h4>
-        <div class="card">
-            <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">Upcoming mock interviews</div>
-            <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
-                <span>📝 Mock 1 (Technical)</span>
-                <span style="color: var(--text-muted);">05/10/26 14:00</span>
-            </div>
-            <div style="display: flex; justify-content: space-between; font-size: 13px;">
-                <span>👔 Mock 2 (HR)</span>
-                <span style="color: var(--text-muted);">07/10/26 10:00</span>
-            </div>
-        </div>
-
-        <h4>SKILL ASSESSMENT</h4>
-        <div class="skill-grid">
-            <div class="skill-box">
-                <div class="skill-icon">🐍</div>
-                <div style="font-size: 13px; font-weight: bold;">Python</div>
-                <div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div>
-            </div>
-            <div class="skill-box">
-                <div class="skill-icon">⚛️</div>
-                <div style="font-size: 13px; font-weight: bold;">React</div>
-                <div class="progress-bar"><div class="progress-fill" style="width: 65%;"></div></div>
-            </div>
-            <div class="skill-box">
-                <div class="skill-icon">👥</div>
-                <div style="font-size: 13px; font-weight: bold;">Teamwork</div>
-                <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
-            </div>
-        </div>
-
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 25px; margin-bottom: 10px;">
-            <h4 style="margin: 0;">JOB FEED</h4>
-            <span style="color: var(--primary-color); font-size: 13px; cursor: pointer;">See all</span>
-        </div>
-
-        <div id="student_job_feed">
-            <div class="card" style="display: flex; gap: 12px; align-items: center;">
-                <div style="background-color: #1a222d; padding: 10px; border-radius: 12px; font-size: 20px;">🇪🇹</div>
-                <div style="flex-grow: 1;">
-                    <div style="font-weight: bold; font-size: 14px;">Frontend Dev - Ethio Telecom</div>
-                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Frontend dev with telecom disruption experience...</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 6. DASHBOARD (EMPLOYER) -->
-    <div id="EmployerDashboard" class="page">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <div>
-                <h2 style="margin: 0; font-size: 22px;">Employer Dashboard</h2>
-                <div style="color: var(--text-muted); font-size: 14px; margin-top: 4px;" id="welcome_emp_name">Welcome, CBE HR! 💼</div>
-            </div>
-            <div style="width: 35px; height: 35px; border-radius: 50%; background-color: var(--secondary-color); display: flex; align-items: center; justify-content: center; font-weight: bold;">HR</div>
-        </div>
-
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <h4>JOB POSTINGS</h4>
-            <span style="color: var(--text-muted); font-size: 12px;">Active jobs</span>
-        </div>
-        
-        <div class="card" style="padding: 10px 16px;">
-            <div style="padding: 12px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; font-size: 14px;">
-                <span>💼 Frontend Dev</span> <span>❯</span>
-            </div>
-            <div style="padding: 12px 0; display: flex; justify-content: space-between; font-size: 14px;">
-                <span>🎨 UX/UI Designer</span> <span>❯</span>
-            </div>
-        </div>
-
-        <button class="btn" style="margin-top: 5px; margin-bottom: 20px;" onclick="openJobPostModal()">POST NEW JOB</button>
-
-        <h4>AI MATCHES</h4>
-        <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">Applicant cards</div>
-        <div class="talent-list">
-            <div class="talent-card">
-                <div class="talent-img" style="color: #ffb800;">AB</div>
-                <div style="font-size: 12px; font-weight: bold; margin-top: 6px;">Abebe</div>
-                <div style="font-size: 10px; color: var(--primary-color); margin-top: 2px;">89% Match</div>
-            </div>
-            <div class="talent-card">
-                <div class="talent-img" style="color: #00b074;">SR</div>
-                <div style="font-size: 12px; font-weight: bold; margin-top: 6px;">Sara</div>
-                <div style="font-size: 10px; color: var(--primary-color); margin-top: 2px;">85% Match</div>
-            </div>
-            <div class="talent-card">
-                <div class="talent-img" style="color: #2563eb;">YN</div>
-                <div style="font-size: 12px; font-weight: bold; margin-top: 6px;">Yonas</div>
-                <div style="font-size: 10px; color: var(--primary-color); margin-top: 2px;">82% Match</div>
-            </div>
-        </div>
-
-        <h4 style="margin-top: 25px;">SCHEDULED INTERVIEWS</h4>
-        <div class="card" style="font-size: 13px;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                <span>👩‍ቆ Sara - Interview</span> <span style="color: var(--text-muted);">06/10/26 11:30</span>
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-                <span>👨‍ቆ Abebe - Technical</span> <span style="color: var(--text-muted);">09/10/26 15:00</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- BOTTOM NAVIGATION BAR -->
-    <div id="BottomNav" class="bottom-nav">
-        <div class="nav-item active-nav" onclick="handleNavClick('home')">
-            <span class="nav-icon">🏠</span>
-            <span>Home</span>
-        </div>
-        <div class="nav-item" onclick="handleNavClick('interviews')">
-            <span class="nav-icon">📅</span>
-            <span>Interviews</span>
-        </div>
-        <div class="nav-item" onclick="handleNavClick('community')">
-            <span class="nav-icon">💬</span>
-            <span>Community</span>
-        </div>
-        <div class="nav-item" onclick="handleNavClick('profile')">
-            <span class="nav-icon">👤</span>
-            <span>Profile</span>
-        </div>
-    </div>
-
-    <script>
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-
-        let sessionUser = { name: 'Yonas', role: 'student' };
-
-        function showAuthPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            document.getElementById('BottomNav').style.display = 'none';
-        }
-
-        function goToSignup(role) {
-            if(role === 'student') {
-                showAuthPage('SignupStudentPage');
-            } else {
-                showAuthPage('SignupEmployerPage');
-            }
-        }
-
-        function registerUser(role) {
-            if(role === 'student') {
-                const name = document.getElementById('stu_name').value.trim();
-                if(!name) { alert('Please enter your name'); return; }
-                sessionUser.name = name;
-                sessionUser.role = 'student';
-            } else {
-                const comp = document.getElementById('emp_company').value.trim();
-                if(!comp) { alert('Please enter company name'); return; }
-                sessionUser.name = comp;
-                sessionUser.role = 'employer';
-            }
-            alert('Registration Successful! 🎉');
-            enterDashboard();
-        }
-
-        function loginAction() {
-            const email = document.getElementById('log_email').value.trim();
-            if(!email) { alert('Please enter your email'); return; }
-            
-            if(email.includes('employer') || email.includes('hr')) {
-                sessionUser.role = 'employer';
-                sessionUser.name = "CBE HR";
-            } else {
-                sessionUser.role = 'student';
-                sessionUser.name = "Yonas";
-            }
-            enterDashboard();
-        }
-
-        function enterDashboard() {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById('BottomNav').style.display = 'grid';
-            
-            if(sessionUser.role === 'student') {
-                document.getElementById('welcome_stu_name').innerText = "Welcome, " + sessionUser.name + "! 👋";
-                document.getElementById('StudentDashboard').classList.add('active');
-            } else {
-                document.getElementById('welcome_emp_name').innerText = "Welcome, " + sessionUser.name + "! 💼";
-                document.getElementById('EmployerDashboard').classList.add('active');
-            }
-        }
-
-        function handleNavClick(type) {
-            // Update active state in UI nav items
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active-nav'));
-            event.currentTarget.classList.add('active-nav');
-
-            if(type === 'home') {
-                enterDashboard();
-            } else {
-                alert(type.toUpperCase() + " section is coming soon in the next update!");
-            }
-        }
-
-        function openJobPostModal() {
-            const title = prompt("Enter Job Title:");
-            if(!title) return;
-            
-            const studentFeed = document.getElementById('student_job_feed');
-            const newCard = document.createElement('div');
-            newCard.className = 'card';
-            newCard.style.display = 'flex';
-            newCard.style.gap = '12px';
-            newCard.style.alignItems = 'center';
-            newCard.innerHTML = `<div style="background-color: #1a222d; padding: 10px; border-radius: 12px; font-size: 20px;">🚀</div><div><div style="font-weight: bold; font-size: 14px;">${title} - ${sessionUser.name}</div><div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">New opening directly posted from the dashboard.</div></div>`;
-            
-            studentFeed.insertBefore(newCard, studentFeed.firstChild);
-            alert("🚀 Job Posted Successfully! Students can see it live.");
         }
     </script>
 </body>
